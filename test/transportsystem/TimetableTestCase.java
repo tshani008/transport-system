@@ -25,7 +25,7 @@ public class TimetableTestCase {
     MessageUtil messageUtil = new MessageUtil(message);
 
     /**
-     *
+     *Test git comment
      */
     @Test
     public void testPrintMessage() {
