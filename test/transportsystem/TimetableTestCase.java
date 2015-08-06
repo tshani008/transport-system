@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Test;
-import transportsystem.Services;
+import transportsystem.OtherServices;
 
 /**
  *
@@ -20,7 +20,7 @@ public class TimetableTestCase {
     /**
      *
      */
-    public Services services = new Services();
+    public OtherServices services = new OtherServices();
 
     MessageUtil messageUtil = new MessageUtil(message);
 
@@ -43,7 +43,7 @@ public class TimetableTestCase {
             tablelist.add(new Planning("Kottawa-Petta", "Bus", "36-1236", "10.00", "12.30", "Daily"));
             tablelist.add(new Planning("Kaduwela-Malabe", "Bus", "GAA-1236", "1.30", "2.30", "Weekend"));
 
-            Services service = new Services();
+            OtherServices service = new OtherServices();
 
             service.Serialize(tablelist, FILE_NAME);
         } catch (IOException ex) {
@@ -59,7 +59,7 @@ public class TimetableTestCase {
     public void timeTableTestCase() {
 
         try {
-            Services services1 = new Services();
+            OtherServices services1 = new OtherServices();
             int i = 0;
             for (Planning plan : services1.deserialize_timetable(FILE_NAME)) {
 
@@ -87,7 +87,7 @@ public class TimetableTestCase {
     @Test(expected = FileNotFoundException.class)
 
     public void negativeTestCaseForDeserialize() throws FileNotFoundException, IOException, ClassNotFoundException {
-        Services services2 = new Services();
+        OtherServices services2 = new OtherServices();
 
         services2.deserialize_timetable("");
 

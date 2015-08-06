@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Test;
-import transportsystem.Services;
+import transportsystem.OtherServices;
 
 /**
  *
@@ -19,7 +19,7 @@ import transportsystem.Services;
 
 public class NetworkTestCase {
     	String message = " Add Routes ";
-        public  Services services =new Services();
+        public  OtherServices services =new OtherServices();
    
 	MessageUtil messageUtil = new MessageUtil(message);
 
@@ -43,7 +43,7 @@ public class NetworkTestCase {
           
             
             
-            Services service = new Services();
+            OtherServices service = new OtherServices();
             //Serializer.Serialize(empList, FILE_NAME);
             service.Serialize(netList, FILE_NAME);
         } catch (IOException ex) {
@@ -60,7 +60,7 @@ public class NetworkTestCase {
 	@Test
 	public void networkTestCase() {
 
-		try {  Services services1 = new Services();
+		try {  OtherServices services1 = new OtherServices();
 			int i = 0;
 			for (Network net : services1.deserialize_routes(FILE_NAME)) {
 				
@@ -92,7 +92,7 @@ public class NetworkTestCase {
         
 	public void negativeTestCaseForDeserialize() throws ClassNotFoundException,
 			IOException {
-            Services services2=new Services();
+            OtherServices services2=new OtherServices();
 
 	
                 services2.deserialize_routes("Not Found");

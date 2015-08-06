@@ -18,7 +18,7 @@ import javax.swing.table.TableRowSorter;
 import transportsystem.FareManagment;
 import transportsystem.Network;
 import transportsystem.Planning;
-import transportsystem.Services;
+import transportsystem.OtherServices;
 import transportsystem.SetOfFares;
 import transportsystem.SetOfNetworks;
 import transportsystem.SetOfTimetables;
@@ -40,7 +40,7 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
     private static final String FILE_NAME_Fare = "Fare.ser";
     private static final String FILE_NAME_Fare2 = "Fare2.ser";
     private static final String FILE_NAME_Timetable = "TimeTable.ser";
-    private Services service;
+    private OtherServices service;
     private SetOfNetworks theRoutes = new SetOfNetworks();
     private SetOfNetworks theVehicle = new SetOfNetworks();
     private SetOfFares theFare = new SetOfFares();
@@ -65,7 +65,7 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
      */
     public CreateTimeTablesUI() throws IOException, ClassNotFoundException {
         initComponents();
-        service = new Services();
+        service = new OtherServices();
       vehinumtxt.setVisible(false);
 
         try {
@@ -304,6 +304,7 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
         startxt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         routenamecmb = new javax.swing.JComboBox();
+        jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         routetimetable = new javax.swing.JTable();
@@ -311,26 +312,35 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
         routecmb = new javax.swing.JComboBox();
         removebtn = new javax.swing.JButton();
         vehinumtxt = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Route  :");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 64, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Type :");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 121, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Vehicle No  :");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 182, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Start Time :");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 252, -1, -1));
-        jPanel1.add(routetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 56, 190, 30));
+        jPanel1.add(routetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 190, 30));
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Availability  :");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 388, -1, -1));
 
@@ -340,23 +350,25 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
                 AvailablecmbActionPerformed(evt);
             }
         });
-        jPanel1.add(Availablecmb, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 379, 190, 33));
+        jPanel1.add(Availablecmb, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 190, 33));
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Create");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 80, 32));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 100, 32));
 
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("View TimeTables");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, 143, 32));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, 160, 32));
 
         timetablefaretable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -373,17 +385,18 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(timetablefaretable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 385, 440));
-        jPanel1.add(typetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 121, 190, 30));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 410, 440));
+        jPanel1.add(typetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 190, 30));
 
         vehinotxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vehinotxtActionPerformed(evt);
             }
         });
-        jPanel1.add(vehinotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 174, 190, 30));
-        jPanel1.add(endtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 309, 190, 30));
+        jPanel1.add(vehinotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 190, 30));
+        jPanel1.add(endtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 190, 30));
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("End Time :");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 317, -1, -1));
 
@@ -392,11 +405,13 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
                 startxtActionPerformed(evt);
             }
         });
-        jPanel1.add(startxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 244, 190, 30));
+        jPanel1.add(startxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 190, 30));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Choose Route :");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
 
+        routenamecmb.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         routenamecmb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 routenamecmbActionPerformed(evt);
@@ -404,10 +419,21 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
         });
         jPanel1.add(routenamecmb, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 11, 190, 33));
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
+        jLabel11.setText("Back");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, -1, 40));
+
         jTabbedPane2.addTab("          Create TimeTables             ", jPanel1);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 204, 153));
 
+        routetimetable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         routetimetable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -423,8 +449,10 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(routetimetable);
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Choose Route  :");
 
+        routecmb.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         routecmb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         routecmb.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -437,10 +465,20 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
             }
         });
 
+        removebtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         removebtn.setText("Remove");
         removebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removebtnActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
+        jLabel10.setText("Back");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
             }
         });
 
@@ -449,41 +487,45 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(removebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(removebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel9)
-                .addGap(36, 36, 36)
-                .addComponent(routecmb, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(vehinumtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 38, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(36, 36, 36)
+                        .addComponent(routecmb, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94)
+                        .addComponent(vehinumtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(routecmb, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vehinumtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(routecmb, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vehinumtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(removebtn, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addGap(22, 22, 22))
+                .addComponent(removebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("         Edit TimeTable        ", jPanel2);
 
-        getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 750, 540));
+        getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, -5, 790, 570));
 
         pack();
         setLocationRelativeTo(null);
@@ -617,6 +659,16 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_removebtnActionPerformed
 
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        new AdminHomeUI().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel11MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -657,6 +709,8 @@ public class CreateTimeTablesUI extends javax.swing.JFrame {
     private javax.swing.JTextField endtxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

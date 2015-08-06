@@ -5,19 +5,127 @@
  */
 package views;
 
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
+import java.io.IOException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import transportsystem.Account;
+import transportsystem.OtherServices;
+import transportsystem.SetOfAccounts;
+import transportsystem.SetOfTokens;
+import transportsystem.Token;
+
 /**
  *
  * @author Manjula
  */
 public class CustomerRechargeUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CustomerRechargeUI
-     */
-    public CustomerRechargeUI() {
-        initComponents();
+    private Token token;
+    private OtherServices services;
+    private SetOfTokens allTokens = new SetOfTokens();
+    private Account account;
+    private Account selectedAccount;
+    private SetOfAccounts allAccounts = new SetOfAccounts();
+    private SetOfAccounts modifiedList = new SetOfAccounts();
+    private Vector data;
+    private float selectedBalance;
+
+    private static final String FILE_NAME_TOKENS = "CustomerTokens.ser";
+    private static final String FILE_NAME_ACCOUNTS = "CustomerAccounts.ser";
+
+    public static void main(String args[]) throws IOException, ClassNotFoundException {
+        CustomerRechargeUI customerRechargeUI = new CustomerRechargeUI();
+        customerRechargeUI.setVisible(true);
+
     }
 
+    public CustomerRechargeUI() throws IOException, ClassNotFoundException {
+        initComponents();
+
+        services = new OtherServices();
+
+        try {
+            allTokens.addAll(services.deserialize_Tokens(FILE_NAME_TOKENS));
+            allAccounts.addAll(services.deserialize_Accounts(FILE_NAME_ACCOUNTS));
+        } catch (IOException e) {
+//            serialize_all();
+        }
+
+    }
+
+    private void loadBalance(SetOfAccounts ac) throws IOException, ClassNotFoundException {
+
+        int accNo = Integer.parseInt(txtaccNo.getText());
+        float balance;
+        String bal1 = null;
+
+        for (Account account : ac) {
+
+            if (accNo == (account.getAccountNo())) {
+                balance = (account.getBalance());
+                bal1 = Float.toString(balance);
+
+            }
+
+            lblBalance.setText(bal1);
+        }
+
+    }
+
+    private void loadDetails(SetOfAccounts ax) throws IOException, ClassNotFoundException {
+
+        int accNo = Integer.parseInt(txtaccNo.getText());
+        //float balance = 0;
+        //String name = null;
+
+        for (Account account : ax) {
+            if (accNo == (account.getAccountNo())) {
+
+                account.setBalance(account.getBalance() + Float.parseFloat(lblBalance.getText()));
+                int i = ax.indexOf(account);
+                allAccounts.set(i, account);
+            }
+        }
+        // if(!isExist) allAccounts.add(new Account)
+
+        try {
+
+            services.Serialize(allAccounts, FILE_NAME_ACCOUNTS);
+        } catch (Exception e) {
+        }
+
+    }
+
+    /* private void updateBalance(SetOfAccounts ac) throws IOException, ClassNotFoundException
+     {
+     
+     int accNo = Integer.parseInt(txtaccNo.getText());
+     float balance;
+     String ubalance1 = null;
+     float ubalance;
+     float amount=Float.parseFloat(txttknAmount.getText());
+    
+     for (Account account: ac )
+     {
+        
+     if (accNo == (account.getAccountNo()))
+     {
+     balance=(account.getBalance());
+     allAccounts.removeBalance(allAccounts.findBalance(balance));
+     ubalance=amount+balance;
+
+     ubalance1= Float.toString(balance);
+                   
+     }
+                 
+     lblBalance.setText(ubalance1);    
+     }
+        
+     }*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,32 +138,76 @@ public class CustomerRechargeUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtaccNo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txttknAmount = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        lblBalance = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 153));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 51), 2));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Recharge Card");
 
-        jLabel2.setText("Card ID  :");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Account No  :");
 
+        txtaccNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtaccNoActionPerformed(evt);
+            }
+        });
+        txtaccNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtaccNoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtaccNoKeyTyped(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Amount   :");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Balance   :");
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Recharge ");
-
-        jButton2.setText("Back");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton3.setText("Cancel");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        lblBalance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        lblBalance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBalanceMouseClicked(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
+        jLabel6.setText("Back");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
             }
         });
 
@@ -66,55 +218,55 @@ public class CustomerRechargeUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addGap(62, 62, 62)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtaccNo, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                            .addComponent(txttknAmount)
+                            .addComponent(lblBalance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(128, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(280, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addGap(50, 50, 50)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabel3))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtaccNo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttknAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                    .addComponent(lblBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,59 +274,164 @@ public class CustomerRechargeUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        new CustomerHomeUI().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        txttknAmount.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void txtaccNoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtaccNoKeyReleased
+
+    }//GEN-LAST:event_txtaccNoKeyReleased
+
+    private void lblBalanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBalanceMouseClicked
+
+    }//GEN-LAST:event_lblBalanceMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        float amount = Float.parseFloat(txttknAmount.getText());
+        float kBalance = Float.parseFloat(lblBalance.getText());
+        float fbalance = amount + kBalance;
+        int accNo = Integer.parseInt(txtaccNo.getText());
+        String gbalance = Float.toString(fbalance);
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomerRechargeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomerRechargeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomerRechargeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomerRechargeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+            loadDetails(OtherServices.deserialize_Accounts(FILE_NAME_ACCOUNTS));
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CustomerRechargeUI().setVisible(true);
+            //allAccounts.add(new Account(Integer.parseInt(lblAccountNo.getText()),txtPassengerName.getText(),txtNIC.getText(),txtAddress.getText(),txtUserName.getText(),txtPassword.getText(),balance,loanAmount));
+        } catch (IOException ex) {
+            Logger.getLogger(CustomerRechargeUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CustomerRechargeUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (txtaccNo.getText().equalsIgnoreCase("") || txttknAmount.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(rootPane, "Please fill all the fields !!!!!!");
+        } else {
+            lblBalance.setText(gbalance);
+
+            //Account a = allAccounts.findBalance(selectedBalance);
+            try {
+                allAccounts.removeBalance(accNo);
+            } catch (Exception e) {
+
             }
-        });
+
+            //balanceUpdate(fbalance, accNo);
+            try {
+                serialize_all();
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(CustomerRechargeUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JOptionPane.showMessageDialog(rootPane, "Recharged successfully !!!!!!");
+            //lblBalance.setText();
+
+        }
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtaccNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtaccNoActionPerformed
+
+        try {
+            loadBalance(allAccounts);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(CustomerRechargeUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_txtaccNoActionPerformed
+
+    private void txtaccNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtaccNoKeyTyped
+        // TODO add your handling code here:
+        numbersOnlyValidation(evt);
+    }//GEN-LAST:event_txtaccNoKeyTyped
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        new AdminHomeUI().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    public void serialize_all() throws IOException, ClassNotFoundException {
+
+        services.Serialize(allTokens, FILE_NAME_TOKENS);
+        services.Serialize(allAccounts, FILE_NAME_ACCOUNTS);
+
     }
 
+    public void selectAccountBalance() {
+        selectedAccount = allAccounts.findBalance(selectedBalance);
+        System.out.println("Account selected : " + selectedBalance);
+    }
+
+    /**
+     *
+     *
+     * Numbers are only Accepted
+     */
+    private void numbersOnlyValidation(java.awt.event.KeyEvent evt) {
+
+        try {
+            char ch = evt.getKeyChar();
+            if (!Character.isDigit(ch)) {
+
+                evt.consume();
+                Toolkit.getDefaultToolkit().beep();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     *
+     * Letters are only Accepted
+     */
+    private void lettersOnlyValidation(java.awt.event.KeyEvent evt) {
+        try {
+            char ch = evt.getKeyChar();
+            int no = evt.getKeyCode();
+
+            if (Character.isLetter(ch)) {
+
+            } else if (Character.isLetter(ch) || Character.isDigit(ch)) {
+                evt.consume();
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(rootPane, "Characters Only !");
+
+            }
+
+        } catch (HeadlessException e) {
+        }
+
+    }
+
+    /*public void balanceUpdate(float balance,int accountNo) 
+     {
+     balance=selectedBalance;
+     float amount = Float.parseFloat(txttknAmount.getText());
+     float ubalance= balance+amount;
+     allAccounts.removeBalance(accountNo,balance);
+     allAccounts.updateBalance(ubalance, accountNo);
+     }
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel lblBalance;
+    private javax.swing.JTextField txtaccNo;
+    private javax.swing.JTextField txttknAmount;
     // End of variables declaration//GEN-END:variables
 }

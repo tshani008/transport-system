@@ -28,7 +28,7 @@ public class SetOfNetworksTest {
     /**
      *
      */
-    public Services services = new Services();
+    public OtherServices services = new OtherServices();
 
     MessageUtil messageUtil = new MessageUtil(message);
 
@@ -50,7 +50,7 @@ public class SetOfNetworksTest {
             netList.add(new Network(138, "Kottawa-Petta", "Bus"));
             netList.add(new Network(336, "Kottawa-Malabe", "Bus"));
 
-            Services service = new Services();
+            OtherServices service = new OtherServices();
             //Serializer.Serialize(empList, FILE_NAME);
             service.Serialize(netList, FILE_NAME);
         } catch (IOException ex) {
@@ -66,7 +66,7 @@ public class SetOfNetworksTest {
     public void networkTestCase() {
 
         try {
-            Services services1 = new Services();
+            OtherServices services1 = new OtherServices();
             int i = 0;
             for (Network net : services1.deserialize_routes(FILE_NAME)) {
 
@@ -97,7 +97,7 @@ public class SetOfNetworksTest {
 
     public void negativeTestCaseForDeserialize() throws ClassNotFoundException,
             IOException {
-        Services services2 = new Services();
+        OtherServices services2 = new OtherServices();
 
         services2.deserialize_routes("Not Found");
 
