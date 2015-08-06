@@ -67,7 +67,7 @@ public class CustomerRechargeUI extends javax.swing.JFrame {
 
             if (accNo == (account.getAccountNo())) {
                 balance = (account.getBalance());
-                bal1 = Float.toString(balance);
+                bal1 = String.valueOf(balance);
 
             }
 
@@ -296,7 +296,7 @@ public class CustomerRechargeUI extends javax.swing.JFrame {
         float kBalance = Float.parseFloat(lblBalance.getText());
         float fbalance = amount + kBalance;
         int accNo = Integer.parseInt(txtaccNo.getText());
-        String gbalance = Float.toString(fbalance);
+        String gbalance = String.valueOf(fbalance);
         try {
             loadDetails(OtherServices.deserialize_Accounts(FILE_NAME_ACCOUNTS));
 

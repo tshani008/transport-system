@@ -5,6 +5,7 @@
  */
 package transportsystem;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -65,5 +66,20 @@ public class SetOfAccounts extends Vector<Account> implements Serializable {
         return this.remove(findAccountFromAccNumber(accNo).getBalance());
         //return super.remove(balance1);
     }
+    
+        public float getbalanceFromNumber(int number)
+  {
+     Account foundnumber=new Account();
+     float balance=0;
+         for(Account net:this)
+            {
+                 if(net.getAccountNo()==number)
+            {
+              balance=net.getBalance();
+              break;
+             }
+      }
+      return  balance;
+  }
 
 }

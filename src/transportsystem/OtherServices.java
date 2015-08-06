@@ -103,4 +103,15 @@ public class OtherServices {
                 System.out.println(filename+" Deserialized !");
 		return timetable;
 	}
+  
+    public SetOfFeedbacks deserialize_feedback(String filename) throws IOException, ClassNotFoundException {
+
+		FileInputStream in = new FileInputStream(filename);
+		ObjectInputStream ois = new ObjectInputStream(in);
+		    SetOfFeedbacks feedback = (SetOfFeedbacks) ois
+				.readObject();
+		in.close();
+                System.out.println(filename+" Deserialized !");
+		return feedback;
+	}
 }

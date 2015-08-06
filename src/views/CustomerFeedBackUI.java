@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package views;
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.io.IOException;
 import static java.lang.String.valueOf;
 import java.text.DateFormat;
@@ -84,6 +86,12 @@ public class CustomerFeedBackUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Account No  :");
 
+        txtaccn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtaccnKeyTyped(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Comments :");
 
@@ -93,6 +101,12 @@ public class CustomerFeedBackUI extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Name   :");
+
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNameKeyTyped(evt);
+            }
+        });
 
         btnAddComment.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnAddComment.setText("Add Comment");
@@ -142,9 +156,9 @@ public class CustomerFeedBackUI extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtaccn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtaccn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(72, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -157,11 +171,11 @@ public class CustomerFeedBackUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtaccn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -223,9 +237,20 @@ public class CustomerFeedBackUI extends javax.swing.JFrame {
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
-        new AdminHomeUI().setVisible(true);
+        new CustomerHomeUI().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void txtaccnKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtaccnKeyTyped
+        // TODO add your handling code here:
+        numbersOnlyValidation(evt);
+       
+    }//GEN-LAST:event_txtaccnKeyTyped
+
+    private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
+        // TODO add your handling code here:
+        lettersOnlyValidation(evt);
+    }//GEN-LAST:event_txtNameKeyTyped
 
  
     public void serialize_all() throws IOException, ClassNotFoundException
@@ -240,6 +265,51 @@ public class CustomerFeedBackUI extends javax.swing.JFrame {
         txtName.setText("");
         txtComment.setText("");
         
+    }
+    
+           /**
+     *
+     *
+     * Numbers are only Accepted
+     */
+    private void numbersOnlyValidation(java.awt.event.KeyEvent evt) {
+
+        try {
+            char ch = evt.getKeyChar();
+            if (!Character.isDigit(ch)) {
+
+                evt.consume();
+                Toolkit.getDefaultToolkit().beep();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     *
+     * Letters are only Accepted
+     */
+    private void lettersOnlyValidation(java.awt.event.KeyEvent evt) {
+        try {
+            char ch = evt.getKeyChar();
+            int no = evt.getKeyCode();
+
+            if (Character.isLetter(ch)) {
+
+            } else if (Character.isLetter(ch) || Character.isDigit(ch)) {
+                evt.consume();
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(rootPane, "Characters Only !");
+
+            }
+
+        } catch (HeadlessException e) {
+        }
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddComment;

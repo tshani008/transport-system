@@ -30,21 +30,22 @@ public class SetOfFares extends Vector<FareManagment> implements Serializable{
     super.remove(fare2);
   }  
   
-//    public FareManagment getRouteFromNumber(int number)
-//  {
-//     Network foundnumber=new Network();
-//      for(Network net:this)
-//      {
-//          if(net.getRoteId()==number)
-//          {
-//              foundnumber=net;
-//              break;
-//          }
-//      }
-//      return foundnumber; 
-//  }
-//   
-    
+    public String getFare(String p1,String p2)
+  {
+      FareManagment foundnumber=new FareManagment();
+     String fare=null;
+      for(FareManagment net:this)
+      {
+          if(net.getStartPoint()==p1 && net.getEndPoint()==p2)
+          {
+             fare=net.getFare();
+              break;
+          }
+      }
+      return fare;
+  }
+   
+
    
     
 }

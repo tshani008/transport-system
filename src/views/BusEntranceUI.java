@@ -6,13 +6,28 @@
 package views;
 
 import java.io.IOException;
+import javax.swing.JOptionPane;
+import transportsystem.Account;
+import transportsystem.Feedback;
+import transportsystem.OtherServices;
+import transportsystem.SetOfAccounts;
+import transportsystem.SetOfFeedbacks;
 
 /**
  *
  * @author Manjula
  */
 public class BusEntranceUI extends javax.swing.JFrame {
-
+    
+      private Account account;
+   private SetOfAccounts allAccounts = new SetOfAccounts();
+   private OtherServices services;
+   private static final String FILE_NAME_ACCOUNTS = "CustomerAccounts.ser";
+     private Feedback feedback;
+   private SetOfFeedbacks allFeedbacks = new SetOfFeedbacks();
+  private static final String FILE_NAME_FeedBack = "CustomerFeedbacks.ser";
+  private  String selectedpoint1=null;
+ float newbalance=0;
     /**
      * Creates new form BusEntranceUI
      */
@@ -22,10 +37,26 @@ public class BusEntranceUI extends javax.swing.JFrame {
         BusEntranceUI theGUI = new BusEntranceUI();
         theGUI.setVisible(true);
     }
-    public BusEntranceUI() {
+    public BusEntranceUI() throws IOException, ClassNotFoundException {
         initComponents();
+        
+               try
+    {
+        allAccounts.addAll(OtherServices.deserialize_Accounts(FILE_NAME_ACCOUNTS));
+       
     }
-
+    catch(IOException e)
+    {
+        serialize_all();
+        
+    }
+    }
+        public void serialize_all() throws IOException, ClassNotFoundException
+  {
+      
+      services.Serialize(allAccounts, FILE_NAME_ACCOUNTS);
+     
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +67,7 @@ public class BusEntranceUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        accnotxt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -60,8 +91,13 @@ public class BusEntranceUI extends javax.swing.JFrame {
         jLabel1.setText("Please Enter Your Card ID :");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 27, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 193, 38));
+        accnotxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        accnotxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accnotxtActionPerformed(evt);
+            }
+        });
+        getContentPane().add(accnotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 193, 38));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Select  Point  :");
@@ -73,6 +109,11 @@ public class BusEntranceUI extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Kottawa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 186, 137, 60));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -106,6 +147,11 @@ public class BusEntranceUI extends javax.swing.JFrame {
 
         jButton9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton9.setText("Pannipitiya");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 186, 129, 60));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -178,6 +224,63 @@ public class BusEntranceUI extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jLabel10MouseClicked
 
+    private void accnotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accnotxtActionPerformed
+        // TODO add your handling code here:
+        try {
+         //  SetOfAccounts setofacc=new SetOfAccounts();
+      float val=  allAccounts.getbalanceFromNumber(Integer.parseInt(accnotxt.getText()));
+       System.out.println(val);
+       if(val<=8){
+       
+       newbalance=(float) (val+30.00);
+         System.out.println(newbalance);
+           JOptionPane.showMessageDialog(rootPane,"You Got A Loan Of Rs.30/-..New Balance is : "+newbalance);
+            loadDetails(OtherServices.deserialize_Accounts(FILE_NAME_ACCOUNTS));
+       
+       }
+       else{
+       System.out.println("boooo");
+       
+       }
+        serialize_all();
+        } catch (Exception e) {
+        }
+        
+    }//GEN-LAST:event_accnotxtActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jButton9ActionPerformed
+    private void loadDetails(SetOfAccounts ax) throws IOException, ClassNotFoundException {
+
+        int accNo = Integer.parseInt(accnotxt.getText());
+        //float balance = 0;
+        //String name = null;
+
+        for (Account account : ax) {
+            if (accNo == (account.getAccountNo())) {
+
+                account.setBalance(account.getBalance() + newbalance);
+                int i = ax.indexOf(account);
+                allAccounts.set(i, account);
+            }
+        }
+        // if(!isExist) allAccounts.add(new Account)
+
+        try {
+
+            services.Serialize(allAccounts, FILE_NAME_ACCOUNTS);
+        } catch (Exception e) {
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -214,6 +317,7 @@ public class BusEntranceUI extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField accnotxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -230,6 +334,5 @@ public class BusEntranceUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,8 @@
  */
 package views;
 
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.io.IOException;
 import static java.lang.String.valueOf;
 import java.util.ArrayList;
@@ -116,6 +118,7 @@ private TableModel model;
            
         }
     }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -186,6 +189,23 @@ private TableModel model;
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Name   :");
 
+        txtname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnameKeyTyped(evt);
+            }
+        });
+
+        txtcntactno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcntactnoActionPerformed(evt);
+            }
+        });
+        txtcntactno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcntactnoKeyTyped(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Designation :");
 
@@ -228,29 +248,31 @@ private TableModel model;
                         .addComponent(lblEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(txtcntactno))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(63, 63, 63)
-                                .addComponent(txtage, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel1))
+                                    .addGap(48, 48, 48))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(76, 76, 76)))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel1))
-                                .addGap(35, 35, 35)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbdesignation, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cmbdesignation, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(jPanel4Layout.createSequentialGroup()
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel7)
                                 .addComponent(jLabel8))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtusername, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addGap(56, 56, 56)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtusername)
                                 .addComponent(txtpwd)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -486,6 +508,21 @@ private TableModel model;
         this.setVisible(false);
     }//GEN-LAST:event_jLabel14MouseClicked
 
+    private void txtcntactnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcntactnoActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtcntactnoActionPerformed
+
+    private void txtcntactnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcntactnoKeyTyped
+        // TODO add your handling code here:
+        numbersOnlyValidation(evt);
+    }//GEN-LAST:event_txtcntactnoKeyTyped
+
+    private void txtnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnameKeyTyped
+        // TODO add your handling code here:
+        lettersOnlyValidation(evt);
+    }//GEN-LAST:event_txtnameKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -506,6 +543,50 @@ private TableModel model;
         txtage.setText("");
         lblEmpID.setText("");
        
+    }
+           /**
+     *
+     *
+     * Numbers are only Accepted
+     */
+    private void numbersOnlyValidation(java.awt.event.KeyEvent evt) {
+
+        try {
+            char ch = evt.getKeyChar();
+            if (!Character.isDigit(ch)) {
+
+                evt.consume();
+                Toolkit.getDefaultToolkit().beep();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     *
+     * Letters are only Accepted
+     */
+    private void lettersOnlyValidation(java.awt.event.KeyEvent evt) {
+        try {
+            char ch = evt.getKeyChar();
+            int no = evt.getKeyCode();
+
+            if (Character.isLetter(ch)) {
+
+            } else if (Character.isLetter(ch) || Character.isDigit(ch)) {
+                evt.consume();
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(rootPane, "Characters Only !");
+
+            }
+
+        } catch (HeadlessException e) {
+        }
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndelete;

@@ -378,7 +378,7 @@ public class CustomerRegUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        float balance=10;
+        float balance=5;
         float loanAmount=0;
      if(lblAccountNo.getText().equalsIgnoreCase("") || txtPassengerName.getText().equalsIgnoreCase("") || txtNIC.getText().equalsIgnoreCase("") || txtAddress.getText().equalsIgnoreCase("") || txtUserName.getText().equalsIgnoreCase("") || txtPassword.getText().equalsIgnoreCase(""))
      {
