@@ -14,11 +14,18 @@ import java.util.Vector;
  */
 public class SetOfFeedbacks extends Vector<Feedback> implements Serializable{
 
+    /**
+     *
+     */
     public SetOfFeedbacks() {
         super();
     }
     
-     public void addFeedback(Feedback feedback){
+    /**
+     *
+     * @param feedback
+     */
+    public void addFeedback(Feedback feedback){
         super.add(feedback);
   }
     

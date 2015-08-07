@@ -268,6 +268,11 @@ public class LoginEmployeeUI extends javax.swing.JFrame {
 	            				UserError1.setText("");
                         PassError1.setText("");
                                                 UserError1.setText(result.get(i).getUserName()+" logged in!");
+                                                if(result.get(i).getDesignation()=="Manager"){
+                                                
+                                                new AdminHomeUI().setVisible(true);
+                                                this.setVisible(false);
+                                                }
 	            				//logged in final action to show HOME page
 	            				
                                                 new EmployeeHomeUI().setVisible(true);

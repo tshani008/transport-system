@@ -24,7 +24,17 @@ public class Account implements Serializable{
     private String userName;
     private String password;
 
-    
+    /**
+     *
+     * @param accountNo
+     * @param passengerName
+     * @param passengerNIC
+     * @param address
+     * @param userName
+     * @param password
+     * @param balance
+     * @param loanAmount
+     */
     public Account(int accountNo, String passengerName, String passengerNIC, String address, String userName, String password, float balance, float loanAmount) {
         this.accountNo = accountNo;
         this.passengerName = passengerName;
@@ -36,6 +46,15 @@ public class Account implements Serializable{
         this.password = password;
     }
 
+    /**
+     *
+     * @param accountNo
+     * @param passengerName
+     * @param passengerNIC
+     * @param address
+     * @param userName
+     * @param password
+     */
     public Account(int accountNo, String passengerName, String passengerNIC, String address, String userName, String password) {
         this.accountNo = accountNo;
         this.passengerName = passengerName;
@@ -45,72 +64,136 @@ public class Account implements Serializable{
         this.password = password;
     }
 
+    /**
+     *
+     */
     public Account() {
     }
 
-    
-    
-
+    /**
+     *
+     * @return
+     */
     public int getAccountNo() {
         return accountNo;
     }
 
+    /**
+     *
+     * @param accountNo
+     */
     public void setAccountNo(int accountNo) {
         this.accountNo = accountNo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassengerName() {
         return passengerName;
     }
 
+    /**
+     *
+     * @param passengerName
+     */
     public void setPassengerName(String passengerName) {
         this.passengerName = passengerName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassengerNIC() {
         return passengerNIC;
     }
 
+    /**
+     *
+     * @param passengerNIC
+     */
     public void setPassengerNIC(String passengerNIC) {
         this.passengerNIC = passengerNIC;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     *
+     * @param address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     *
+     * @return
+     */
     public float getBalance() {
         return balance;
     }
 
+    /**
+     *
+     * @param balance
+     */
     public void setBalance(float balance) {
         this.balance = balance;
     }
 
+    /**
+     *
+     * @return
+     */
     public float getLoanAmount() {
         return loanAmount;
     }
 
+    /**
+     *
+     * @param loanAmount
+     */
     public void setLoanAmount(float loanAmount) {
         this.loanAmount = loanAmount;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

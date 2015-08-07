@@ -81,5 +81,19 @@ public class SetOfAccounts extends Vector<Account> implements Serializable {
       }
       return  balance;
   }
+   public float getloanFromNumber(int number)
+  {
+     Account foundnumber=new Account();
+     float loan=0;
+         for(Account net:this)
+            {
+                 if(net.getAccountNo()==number)
+            {
+              loan=net.getLoanAmount();
+              break;
+             }
+      }
+      return  loan;
+  }
 
 }

@@ -27,84 +27,80 @@ import transportsystem.SetOfFeedbacks;
  */
 public class ViewCustomerFeedbacksUI extends javax.swing.JFrame {
 
-   private Account account;
-   private SetOfAccounts allAccounts = new SetOfAccounts();
-   private OtherServices services;
-   private static final String FILE_NAME_ACCOUNTS = "CustomerAccounts.ser";
-     private Feedback feedback;
-   private SetOfFeedbacks allFeedbacks = new SetOfFeedbacks();
-  private static final String FILE_NAME_FeedBack = "CustomerFeedbacks.ser";
-   
+    private Account account;
+    private SetOfAccounts allAccounts = new SetOfAccounts();
+    private OtherServices services;
+    private static final String FILE_NAME_ACCOUNTS = "CustomerAccounts.ser";
+    private Feedback feedback;
+    private SetOfFeedbacks allFeedbacks = new SetOfFeedbacks();
+    private static final String FILE_NAME_FeedBack = "CustomerFeedbacks.ser";
 
-  private TableModel model;
-  private Vector data;
-  private Vector header_Customers;
+    private TableModel model;
+    private Vector data;
+    private Vector header_Customers;
 
-  TableRowSorter<TableModel> sorter_Customers;
+    TableRowSorter<TableModel> sorter_Customers;
 
-  List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(4);
-  
-     public static void main(String args[]) throws IOException, ClassNotFoundException {
+    List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(4);
+
+    /**
+     *
+     * @param args
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public static void main(String args[]) throws IOException, ClassNotFoundException {
 
         ViewCustomerFeedbacksUI theGUI = new ViewCustomerFeedbacksUI();
         theGUI.setVisible(true);
     }
-    
-  public ViewCustomerFeedbacksUI() throws ClassNotFoundException, IOException {
+
+    /**
+     *
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
+    public ViewCustomerFeedbacksUI() throws ClassNotFoundException, IOException {
         initComponents();
         services = new OtherServices();
-        
-    try
-    {
-       // allAccounts.addAll(services.deserialize_Accounts(FILE_NAME_ACCOUNTS));
-        allFeedbacks.addAll(services.deserialize_feedback(FILE_NAME_FeedBack));
+
+        try {
+            // allAccounts.addAll(services.deserialize_Accounts(FILE_NAME_ACCOUNTS));
+            allFeedbacks.addAll(services.deserialize_feedback(FILE_NAME_FeedBack));
+        } catch (IOException e) {
+
+        }
+
+        header_Customers = new Vector();
+        header_Customers.add("Account Number");
+        header_Customers.add("Passenger Name");
+        header_Customers.add("Comment");
+
+        loadCustomersTable(allFeedbacks);
+
     }
-    catch(IOException e)
-    {
-       
-    }
-    
-    
-    header_Customers=new Vector();
-    header_Customers.add("Account Number");
-    header_Customers.add("Passenger Name");
-    header_Customers.add("Comment");
-  
-    loadCustomersTable(allFeedbacks);
-    
 
-   }
-
-  
-
-  
-   private void loadCustomersTable(SetOfFeedbacks feed) throws IOException, ClassNotFoundException
-  {
-      data = new Vector<Vector<String>>();
-      for(Feedback feedback:feed)
-          {
-            Vector v=new Vector();
+    private void loadCustomersTable(SetOfFeedbacks feed) throws IOException, ClassNotFoundException {
+        data = new Vector<Vector<String>>();
+        for (Feedback feedback : feed) {
+            Vector v = new Vector();
             v.add(feedback.getAccNO());
             v.add(feedback.getName());
             v.add(feedback.getComments());
-            
-            
+
             data.add(v);
-           
-            
-          }
-        model = new DefaultTableModel(data,header_Customers);
-      
+
+        }
+        model = new DefaultTableModel(data, header_Customers);
+
         feedbacktable.setModel(model);
-        sorter_Customers = new TableRowSorter<TableModel> (model);
+        sorter_Customers = new TableRowSorter<TableModel>(model);
         feedbacktable.setRowSorter(sorter_Customers);
         jScrollPane1.setViewportView(feedbacktable);
         feedbacktable.setAutoscrolls(true);
         feedbacktable.getTableHeader().setReorderingAllowed(false);
-        
- }
 
-    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -235,8 +231,6 @@ public class ViewCustomerFeedbacksUI extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-   
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable feedbacktable;

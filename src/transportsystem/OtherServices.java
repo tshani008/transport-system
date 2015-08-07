@@ -114,4 +114,14 @@ public class OtherServices {
                 System.out.println(filename+" Deserialized !");
 		return feedback;
 	}
+      public SetOfJourneys deserialize_journey(String filename) throws IOException, ClassNotFoundException {
+
+		FileInputStream in = new FileInputStream(filename);
+		ObjectInputStream ois = new ObjectInputStream(in);
+		    SetOfJourneys journey = (SetOfJourneys) ois
+				.readObject();
+		in.close();
+                System.out.println(filename+" Deserialized !");
+		return journey;
+	}
 }

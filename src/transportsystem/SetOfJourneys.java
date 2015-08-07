@@ -10,22 +10,32 @@ import java.util.Vector;
 
 /**
  *
- * @author User
+ * @author Theja
  */
-public class SetOfTokens extends Vector<Token> implements Serializable{
-    
+public class SetOfJourneys extends Vector<Journey> implements Serializable {
+
     /**
      *
      */
-    public SetOfTokens() {
+    public SetOfJourneys() {
+
         super();
     }
+
+    /**
+     *
+     * @param j
+     */
+    public void addJourney(Journey j) {
+        super.add(j);
+    }
     
     /**
      *
-     * @param token
+     * @param j2
      */
-    public void addToken(Token token){
-        super.add(token);
+    public void removeJournry(Journey j2) {
+        super.remove(j2);
     }
+
 }

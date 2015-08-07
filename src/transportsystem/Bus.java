@@ -13,10 +13,18 @@ public class Bus{
     
     int busID;
 
+    /**
+     *
+     * @return
+     */
     public int getBusID() {
         return busID;
     }
 
+    /**
+     *
+     * @param busID
+     */
     public void setBusID(int busID) {
         this.busID = busID;
     }

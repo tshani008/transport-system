@@ -14,8 +14,9 @@ import java.util.Vector;
  */
 public class SetOfNetworks extends Vector<Network> implements Serializable{
     
-     
-
+    /**
+     *
+     */
     public SetOfNetworks() {
         
         super();
@@ -23,6 +24,10 @@ public class SetOfNetworks extends Vector<Network> implements Serializable{
   
     private volatile static SetOfNetworks firstInstance;
     
+    /**
+     *
+     * @return
+     */
     public static synchronized SetOfNetworks getInstance()
   {
       if(firstInstance==null)
@@ -36,20 +41,29 @@ public class SetOfNetworks extends Vector<Network> implements Serializable{
       return firstInstance;
   }
     
-    
-     public void addNetowrk(Network network) 
+    /**
+     *
+     * @param network
+     */
+    public void addNetowrk(Network network) 
   {
     super.add(network);
   }
     
-   
-  public void removeNetwork(Network aRoute) 
+    /**
+     *
+     * @param aRoute
+     */
+    public void removeNetwork(Network aRoute) 
   {
     super.remove(aRoute);
   }  
   
-  
-  
+    /**
+     *
+     * @param number
+     * @return
+     */
     public Network getRouteFromNumber(int number)
   {
      Network foundnumber=new Network();
@@ -64,21 +78,30 @@ public class SetOfNetworks extends Vector<Network> implements Serializable{
       return foundnumber; 
   }
    
-    
-    
-   public void addVehical(Network route) 
+    /**
+     *
+     * @param route
+     */
+    public void addVehical(Network route) 
   {
     super.add(route);
   }
    
-   
-   public void removeVehical(Network vehicle) 
+    /**
+     *
+     * @param vehicle
+     */
+    public void removeVehical(Network vehicle) 
   {
     super.remove(vehicle);
   } 
    
-   
-     public Network getVehicleFromNumber(String number)
+    /**
+     *
+     * @param number
+     * @return
+     */
+    public Network getVehicleFromNumber(String number)
   {
     Network foundnumber=new Network();
         for(Network net:this)

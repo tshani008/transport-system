@@ -15,27 +15,38 @@ import java.util.Vector;
  */
 public class SetOfTimetables extends Vector<Planning> implements Serializable {
 
+    /**
+     *
+     */
     public SetOfTimetables() {
         
          super();
     }
     
-    
-    
-    
-        public void addTimeTable(Planning timetable) 
+    /**
+     *
+     * @param timetable
+     */ 
+    public void addTimeTable(Planning timetable) 
   {
     super.add(timetable);
   }
     
-   
-  public void removeTimeTable(Planning timetable) 
+    /**
+     *
+     * @param timetable
+     */
+    public void removeTimeTable(Planning timetable) 
   {
     super.remove(timetable);
   } 
   
-  
-      public Planning getRouteFromNumber(String number)
+    /**
+     *
+     * @param number
+     * @return
+     */
+    public Planning getRouteFromNumber(String number)
   {
      Planning foundnumber=new Planning();
       for(Planning net:this)

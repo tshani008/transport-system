@@ -21,10 +21,19 @@ public class Token implements Serializable {
     private String issuedDate;
     private String expireDate;
     
-
+    /**
+     *
+     */
     public Token() {
     }
 
+    /**
+     *
+     * @param TokenID
+     * @param AccountNo
+     * @param issuedDate
+     * @param expireDate
+     */
     public Token(String TokenID, int AccountNo, String issuedDate, String expireDate) {
         this.TokenID = TokenID;
         this.AccountNo = AccountNo;
@@ -33,35 +42,66 @@ public class Token implements Serializable {
         
     }
 
-   
+    /**
+     *
+     * @return
+     */
     public String getTokenID() {
         return TokenID;
     }
 
+    /**
+     *
+     * @param TokenID
+     */
     public void setTokenID(String TokenID) {
         this.TokenID = TokenID;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAccountNo() {
         return AccountNo;
     }
 
+    /**
+     *
+     * @param AccountNo
+     */
     public void setAccountNo(int AccountNo) {
         this.AccountNo = AccountNo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getIssuedDate() {
         return issuedDate;
     }
 
+    /**
+     *
+     * @param issuedDate
+     */
     public void setIssuedDate(String issuedDate) {
         this.issuedDate = issuedDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getExpireDate() {
         return expireDate;
     }
 
+    /**
+     *
+     * @param expireDate
+     */
     public void setExpireDate(String expireDate) {
         this.expireDate = expireDate;
     }

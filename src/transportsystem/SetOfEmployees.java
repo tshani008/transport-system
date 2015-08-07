@@ -12,20 +12,36 @@ import java.util.Vector;
  */
 public class SetOfEmployees extends Vector<Employee> implements Serializable{
 
+    /**
+     *
+     */
     public SetOfEmployees() {
         super();
     }
     
-    
+    /**
+     *
+     * @param employee
+     */
     public void addEmployee(Employee employee){
         super.add(employee);
   }
     
+    /**
+     *
+     * @param employee
+     * @return
+     */
     public boolean removeEmployee(Employee employee)
   {
       return super.remove(employee);
   }
     
+    /**
+     *
+     * @param number
+     * @return
+     */
     public Employee findEmployeeFromEmpNumber (String number)
   {
       Employee foundemployee=new Employee();

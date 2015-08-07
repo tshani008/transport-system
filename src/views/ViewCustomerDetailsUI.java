@@ -65,6 +65,7 @@ public class ViewCustomerDetailsUI extends javax.swing.JFrame {
     header_Customers.add("NIC");
     header_Customers.add("Address");
     header_Customers.add("Balance");
+    header_Customers.add("Loan Details");
 
     loadCustomersTable(allAccounts);
     
@@ -85,6 +86,7 @@ public class ViewCustomerDetailsUI extends javax.swing.JFrame {
             v.add(account.getPassengerNIC());
             v.add(account.getAddress());
             v.add(account.getBalance());
+            v.add(account.getLoanAmount());
             
             data.add(v);
            

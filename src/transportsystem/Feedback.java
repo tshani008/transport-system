@@ -17,35 +17,68 @@ public class Feedback implements Serializable{
     private String name;
     private String comments;
 
+    /**
+     *
+     */
     public Feedback() {
     }
 
+    /**
+     *
+     * @param accNO
+     * @param name
+     * @param comments
+     */
     public Feedback(int accNO, String name, String comments) {
         this.accNO = accNO;
         this.name = name;
         this.comments = comments;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAccNO() {
         return accNO;
     }
 
+    /**
+     *
+     * @param accNO
+     */
     public void setAccNO(int accNO) {
         this.accNO = accNO;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getComments() {
         return comments;
     }
 
+    /**
+     *
+     * @param comments
+     */
     public void setComments(String comments) {
         this.comments = comments;
     }
