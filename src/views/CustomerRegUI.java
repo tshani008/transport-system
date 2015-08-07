@@ -127,11 +127,35 @@ public class CustomerRegUI extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Account No :");
 
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserNameActionPerformed(evt);
+            }
+        });
+
+        txtPassengerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassengerNameActionPerformed(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Password  :");
 
+        txtConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConfirmPasswordActionPerformed(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Confirm Password :");
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Cancel");
@@ -154,6 +178,12 @@ public class CustomerRegUI extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("NIC :");
+
+        txtNIC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNICActionPerformed(evt);
+            }
+        });
 
         lblAccountNo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblAccountNo.setText("label");
@@ -505,6 +535,31 @@ public class CustomerRegUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void txtPassengerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassengerNameActionPerformed
+        // TODO add your handling code here:
+        txtUserName.grabFocus();
+    }//GEN-LAST:event_txtPassengerNameActionPerformed
+
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+        // TODO add your handling code here:
+        txtPassword.grabFocus();
+    }//GEN-LAST:event_txtUserNameActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+        txtConfirmPassword.grabFocus();
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void txtConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmPasswordActionPerformed
+        // TODO add your handling code here:
+        txtNIC.grabFocus();
+    }//GEN-LAST:event_txtConfirmPasswordActionPerformed
+
+    private void txtNICActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNICActionPerformed
+        // TODO add your handling code here:
+        txtAddress.grabFocus();
+    }//GEN-LAST:event_txtNICActionPerformed
 
 
     

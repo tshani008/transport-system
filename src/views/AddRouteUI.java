@@ -507,7 +507,7 @@ public class AddRouteUI extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("     Add Vehicals    ", jPanel2);
+        jTabbedPane1.addTab("     Add Vehicles    ", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 153));
 

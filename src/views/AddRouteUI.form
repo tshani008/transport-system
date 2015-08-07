@@ -57,8 +57,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="     Add Vehicals    ">
-                <Property name="tabTitle" type="java.lang.String" value="     Add Vehicals    "/>
+              <JTabbedPaneConstraints tabName="     Add Vehicles    ">
+                <Property name="tabTitle" type="java.lang.String" value="     Add Vehicles    "/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
